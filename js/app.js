@@ -56,21 +56,21 @@
     function playCountdownBeep() {
         if (!audioUnlocked || !countdownBeepEl) return;
         countdownBeepEl.currentTime = 0;
-        countdownBeepEl.volume = 0.5;
+        countdownBeepEl.volume = 0.35;
         countdownBeepEl.play().catch(() => {});
     }
 
     function playOnAirHorn() {
         if (!audioUnlocked || !onairHornEl) return;
         onairHornEl.currentTime = 0;
-        onairHornEl.volume = 0.55;
+        onairHornEl.volume = 0.45;
         onairHornEl.play().catch(() => {});
     }
 
     function startBackgroundMusic() {
         if (!bgMusicEl) return;
         bgMusicEl.loop = true;
-        bgMusicEl.volume = bgMusicMuted ? 0 : 0.16;
+        bgMusicEl.volume = bgMusicMuted ? 0 : 0.0;
         bgMusicEl.play().catch(() => {
             /* no source yet — silent no-op until a real file is added */
         });
@@ -149,13 +149,37 @@
                 }
 
                 if (count <= 0) {
-                    clearInterval(timer);
-                    screen2.classList.remove("active");
-                    screen3.classList.add("active");
-                    playOnAirHorn();
-                    setTimeout(endIntro, 1400);
-                }
-            }, 500);
+
+    clearInterval(timer);
+
+    // let final beep finish
+    setTimeout(() => {
+
+        screen2.classList.remove("active");
+        screen3.classList.add("active");
+
+        countdownBeepEl.pause();
+countdownBeepEl.currentTime = 0;
+
+playOnAirHorn();
+
+onairHornEl.onended = () => {
+
+    endIntro();
+
+};
+
+        // wait for horn to finish before loading site
+        setTimeout(() => {
+
+            endIntro();
+
+        }, 3000);
+
+    }, 700);
+
+}
+            }, 1000);
         }
 
         // the countdown (and its sound) only starts once the visitor

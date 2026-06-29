@@ -3,789 +3,472 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A special graduation broadcast celebrating the journey of Olawande Teniola Victoria, Mass Communication, Olabisi Onabanjo University, Class of 2026.">
 
     <title>Special Broadcast | Giggles 🤭</title>
 
     <link rel="stylesheet" href="css/style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Pirata+One&display=swap" rel="stylesheet">
+
+    <noscript>
+        <style>#loader{display:none !important;}</style>
+    </noscript>
 </head>
 
 <body>
 
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- LOVE PARTICLES — subtle drifting hearts, visible across every
+         section since they're fixed to the viewport, not one section -->
+    <div class="love-particles" aria-hidden="true">
+        <span class="heart" style="left:4%;--dur:14s;--delay:0s;--size:14px;">♥</span>
+        <span class="heart" style="left:14%;--dur:18s;--delay:2.5s;--size:10px;">♥</span>
+        <span class="heart" style="left:24%;--dur:16s;--delay:5s;--size:16px;">♥</span>
+        <span class="heart" style="left:36%;--dur:20s;--delay:1s;--size:11px;">♥</span>
+        <span class="heart" style="left:48%;--dur:15s;--delay:7s;--size:13px;">♥</span>
+        <span class="heart" style="left:60%;--dur:19s;--delay:3.5s;--size:15px;">♥</span>
+        <span class="heart" style="left:71%;--dur:17s;--delay:6s;--size:10px;">♥</span>
+        <span class="heart" style="left:82%;--dur:21s;--delay:0.5s;--size:14px;">♥</span>
+        <span class="heart" style="left:91%;--dur:16s;--delay:4.5s;--size:12px;">♥</span>
+        <span class="heart" style="left:55%;--dur:23s;--delay:9s;--size:9px;">♥</span>
+    </div>
+
     <!-- LOADER -->
+    <div id="loader">
 
-    <div id="loader" style="display:none;">
+        <button id="skipIntro" aria-label="Skip intro">Skip Intro →</button>
 
-    <button id="skipIntro">
-        Skip Intro →
-    </button>
+        <div class="intro-screen active" id="screen1">
+            <span class="loader-tag">OOU TIMES</span>
+            <h1>Special Broadcast Edition</h1>
+            <p>The Story of<br>Olawande Teniola Victoria</p>
+            <button id="goLiveBtn" class="primary-btn loader-start-btn" type="button">Go Live</button>
+        </div>
 
-    <div class="intro-screen active" id="screen1">
+        <div class="intro-screen" id="screen2">
+            <div id="countdown" aria-live="polite">5</div>
+        </div>
 
-        <span class="loader-tag">
-            OOU TIMES
-        </span>
-
-        <h1>
-            Special Graduation Edition
-        </h1>
-
-        <p>
-            The Story of
-            <br>
-            Olawande Teniola Victoria
-        </p>
-
-    </div>
-
-    <div class="intro-screen" id="screen2">
-
-        <div id="countdown">
-            5
+        <div class="intro-screen" id="screen3">
+            <div class="on-air">
+                <span class="dot" aria-hidden="true"></span>
+                ON AIR
+            </div>
         </div>
 
     </div>
 
-    <div class="intro-screen" id="screen3">
-
-        <div class="on-air">
-
-            <span class="dot"></span>
-
-            ON AIR
-
+    <!-- MASTHEAD -->
+    <header class="masthead">
+        <div class="logo">
+            <span class="logo-mark">OOU Times</span>
+            <small class="logo-meta">Special Broadcast Edition</small>
         </div>
 
-    </div>
-
-</div>
-
-    <!-- AUDIO -->
-
-    <audio
-        id="bgMusic"
-        loop>
-        <source src="assets/audio/background.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- NAV -->
-
-    <nav>
-
-       <div class="logo">
-
-    <span>OOU TIMES</span>
-
-    <small>
-        Special Graduation Edition
-    </small>
-
-</div>
-
-
-        <button id="themeToggle">
-            🌙
-        </button>
-
-    </nav>
-
-    <!-- NEWS TICKER -->
-
-    <div class="ticker">
-
-        <div class="ticker-track">
-
-            BREAKING NEWS • OLAWANDE TENIOLA VICTORIA SUCCESSFULLY COMPLETES HER UNIVERSITY JOURNEY • CLASS OF 2026 • MASS COMMUNICATION • OLABISI ONABANJO UNIVERSITY •
-
-        </div>
-
-    </div>
-
-    <!-- HERO -->
-
-    <section class="hero">
-
-        <div class="hero-content">
-
-            <span class="broadcast-tag">
-                LIVE SPECIAL COVERAGE
-            </span>
-            <h1>
-
-<div class="breaking-news">
-            
-
-    BREAKING NEWS
-
-</div>
-
-    The Headline
-    <br>
-    She Earned
-</h1>
-
-<div class="hero-name">
-
-    OLAWANDE TENIOLA VICTORIA
-
-</div>
-
-<div class="hero-meta">
-    MASS COMMUNICATION • OOU • CLASS OF 2026
-</div>
-
- <p>
-
-    A special graduation broadcast celebrating the journey of
-
-    <strong>
-        Olawande Teniola Victoria
-    </strong>
-
-    of the Department of Mass Communication,
-    Olabisi Onabanjo University,
-    Media Maven,
-    Class of 2026.
-
-</p>
-
-
-
-            <button class="primary-btn">
-                Begin Broadcast
+        <div class="masthead-controls">
+            <button id="soundToggle" class="sound-toggle" type="button" aria-label="Mute background music" aria-pressed="false">
+                <span aria-hidden="true">🔈</span>
             </button>
 
+            <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="false">
+                <span aria-hidden="true">🌙</span>
+            </button>
         </div>
+    </header>
 
-        <div class="hero-overlay"></div>
-
-    </section>
-
-    <!-- FEATURE STORY -->
-
-    <section class="story">
-
-        <div class="section-header">
-
-            FEATURE STORY
-
+    <!-- TICKER -->
+    <div class="ticker" aria-hidden="true">
+        <div class="ticker-track">
+            <span>BREAKING NEWS • OLAWANDE TENIOLA VICTORIA SUCCESSFULLY COMPLETES HER UNIVERSITY JOURNEY • CLASS OF 2026 • MASS COMMUNICATION • OLABISI ONABANJO UNIVERSITY •</span>
+            <span>BREAKING NEWS • OLAWANDE TENIOLA VICTORIA SUCCESSFULLY COMPLETES HER UNIVERSITY JOURNEY • CLASS OF 2026 • MASS COMMUNICATION • OLABISI ONABANJO UNIVERSITY •</span>
         </div>
-
-        <h2>
-            The Headline She Earned
-        </h2>
-
-        <p>
-
-            Every memorable story has a beginning.
-
-            Every memorable story has an opening scene.
-            For this one, it began during a Campus Mirror event hosted
-            within the Department of Mass Communication.
-            There, the paths of a Brand Designer and
-            Computer Science student crossed with someone who would
-            eventually become a story worth telling.
-        </p>
-
-        <p>
-
-            Years later, another headline arrives.
-
-            Graduation.
-
-        </p>
-
-        <p>
-            After lectures, assignments, projects,
-            presentations and countless memories,
-            Olawande Teniola Victoria officially
-            signs out as a member of the Class of 2026.
-
-        </p>
-
-    </section>
-
-    <!-- TIMELINE -->
-
-    <section class="timeline">
-
-        <div class="section-header">
-            JOURNEY ARCHIVE
-        </div>
-
-        <div class="timeline-item">
-
-            <h3>
-                Where It Started
-            </h3>
-
-            <p>
-                A journalism event brought two paths together.
-            </p>
-
-        </div>
-
-        <div class="timeline-item">
-
-            <h3>
-                Favourite Memories
-            </h3>
-
-            <p>
-
-                It is difficult to point to one memory.
-
-                The laughter, conversations,
-                shared experiences and everyday moments
-                became a collection of memories worth keeping.
-
-            </p>
-
-        </div>
-
-        <div class="timeline-item">
-
-            <h3>
-                The Tough Chapter
-            </h3>
-
-            <p>
-
-                During Industrial Training in
-                300 Level second semester,
-                distance introduced a challenge.
-
-                Yet another chapter was completed successfully.
-
-            </p>
-
-        </div>
-
-    </section>
-
-    <section class="journey-archive">
-
-    <div class="section-header">
-        ARCHIVE FOOTAGE
     </div>
 
-    <h2>
-        Memories Loading...
-    </h2>
+    <main id="main">
 
-    <p>
-        The full documentary archive is currently being prepared.
-    </p>
+        <!-- HERO -->
+        <section class="hero" id="top">
+            <div class="hero-media"></div>
 
-</section>
-
-    <section class="journey-archive">
-
-    <div class="section-header">
-        ARCHIVE FOOTAGE
-    </div>
-
-    <h2>
-        From Fresher To Graduate
-    </h2>
-
-    <p class="archive-intro">
-
-        Every year added a new chapter.
-        Every chapter added a new story.
-
-    </p>
-
-    <div id="archiveContainer">
-
-    </div>
-
-</section>
-
-    <!-- CONTACT DIRECTORY -->
-
-    <section class="directory">
-
-        <div class="section-header">
-            CONTACT DIRECTORY
-        </div>
-
-        <div class="directory-card">
-
-            <h3>
-                Saved Names
-            </h3>
-
-            <p>
-                Her Phone:
-                My Lam Lam 🙈❤️
-            </p>
-
-            <p>
-                His Phone:
-                Kim Tin Tin
-            </p>
-
-        </div>
-
-    </section>
-
-    <!-- PUBLIC PROFILE -->
-
-    <section class="beyond-headline">
-
-    <div class="section-header">
-        BEYOND THE HEADLINE
-    </div>
-
-    <div class="headline-grid">
-
-        <div class="headline-card">
-
-            <h3>
-                Known As
-            </h3>
-
-            <p>
-                Giggles 🤭
-                <br>
-                Gigiola
-            </p>
-
-        </div>
-
-        <div class="headline-card">
-
-            <h3>
-                Described As
-            </h3>
-
-            <p>
-                Calm.
-                <br>
-                Warm.
-                <br>
-                Authentic.
-            </p>
-
-        </div>
-
-        <div class="headline-card">
-
-            <h3>
-                Known For
-            </h3>
-
-            <p>
-                Good energy.
-                <br>
-                A love for dance.
-                <br>
-                Creating memorable moments.
-            </p>
-
-        </div>
-
-        <div class="headline-card">
-
-            <h3>
-                Story Status
-            </h3>
-
-            <p>
-                Still being written.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-<section class="newsroom-interview">
-
-    <div class="section-header">
-        EXCLUSIVE INTERVIEW
-    </div>
-
-    <h2>
-        In The Newsroom
-    </h2>
-
-    <div class="interview-container">
-
-        <div class="interview-card">
-
-            <div class="question">
-                Reporter:
+            <div class="hero-hud" aria-hidden="true">
+                <span class="hud-corner hud-corner--tl"></span>
+                <span class="hud-corner hud-corner--tr"></span>
+                <span class="hud-corner hud-corner--bl"></span>
+                <span class="hud-corner hud-corner--br"></span>
+                <span class="hud-rec"><span class="dot-small"></span>REC</span>
             </div>
 
-            <div class="answer">
-                Who is Giggles?
+            <div class="hero-content">
+                <div class="hero-glass">
+                    <p class="hero-kicker"><span class="live-dot" aria-hidden="true"></span>Live Special Coverage</p>
+
+                    <h1 class="hero-headline">The Headline<br>She Earned</h1>
+
+                    <p class="hero-name">Olawande Teniola Victoria</p>
+                    <p class="hero-meta">Mass Communication • OOU • Class of 2026</p>
+
+                    <p class="hero-dek">
+                        A special graduation broadcast celebrating the journey of
+                        <strong>Olawande Teniola Victoria</strong> of the Department of
+                        Mass Communication, Olabisi Onabanjo University Median Mavin Class of 2026.
+                    </p>
+
+                    <button class="primary-btn" id="beginBtn" type="button">Begin Broadcast</button>
+                </div>
             </div>
+        </section>
 
-        </div>
+        <!-- FEATURE STORY -->
+        <section class="story" id="story">
+            <div class="container container--narrow">
+                <p class="section-header">Feature Story</p>
+                <h2 class="headline">The Headline She Earned</h2>
 
-        <div class="interview-card">
+                <p class="lede">
+                    Every memorable story has a beginning, an opening scene. For this
+                    one, it began during a Campus Mirror event hosted within the
+                    Department of Mass Communication. There, the paths of a Brand
+                    Designer and Computer Science student crossed with someone who
+                    would eventually become a story worth telling.
+                </p>
 
-            <div class="question">
-                Answer:
+                <p>Years later, another headline arrives. Graduation.</p>
+
+                <p>
+                    After lectures, assignments, projects, presentations and
+                    countless memories, Olawande Teniola Victoria officially signs
+                    out as a member of the Class of 2026.
+                </p>
             </div>
+        </section>
 
-            <div class="answer">
-                Someone whose quiet presence leaves a lasting impression.
+        <!-- TIMELINE -->
+        <section class="timeline" id="journey">
+            <div class="container container--narrow">
+                <p class="section-header">Journey Archive</p>
+                <h2 class="headline">Three Moments That Mattered</h2>
+
+                <ol class="timeline-list">
+                    <li class="timeline-item">
+                        <span class="timeline-num">01</span>
+                        <div>
+                            <p class="timeline-tag">Origin Story</p>
+                            <h3>Where It Started</h3>
+                            <p>A journalism event brought two paths together.</p>
+                        </div>
+                    </li>
+
+                    <li class="timeline-item">
+                        <span class="timeline-num">02</span>
+                        <div>
+                            <p class="timeline-tag">Throughout</p>
+                            <h3>Favourite Memories</h3>
+                            <p>
+                                It is difficult to point to one memory. The laughter,
+                                conversations, shared experiences and everyday moments
+                                became a collection of memories worth keeping.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="timeline-item">
+                        <span class="timeline-num">03</span>
+                        <div>
+                            <p class="timeline-tag">300L · Second Semester</p>
+                            <h3>The Tough Chapter</h3>
+                            <p>
+                                During Industrial Training, distance introduced a
+                                challenge. Yet another chapter was completed
+                                successfully.
+                            </p>
+                        </div>
+                    </li>
+                </ol>
             </div>
+        </section>
 
-        </div>
+        <!-- DOCUMENTARY ARCHIVE -->
+        <section class="archive" id="archive">
+            <div class="container">
+                <p class="section-header">Archive Footage</p>
+                <h2 class="headline">From Fresher To Graduate</h2>
+                <div class="tv-reel" id="tvReel">
+                    <div class="tv">
+                        <div class="tv-screen">
+                            <img id="reelImage" alt="" hidden>
+                            <video id="reelVideo" muted playsinline hidden></video>
+                            <div class="tv-scanlines" aria-hidden="true"></div>
+                            <div class="tv-static" id="reelStatic" aria-hidden="true"></div>
+                            <div class="tv-channel">
+                                <span class="tv-on-air"><span class="dot-small" aria-hidden="true"></span>ON AIR</span>
+                                <span class="tv-chapter" id="reelChapterLabel">CH 01 · 100 LEVEL</span>
+                            </div>
+                        </div>
 
-        <div class="interview-card">
+                        <div class="tv-controls">
+                            <button id="reelPrev" type="button" aria-label="Previous">⏮</button>
+                            <button id="reelPlayPause" type="button" aria-label="Pause">⏸</button>
+                            <button id="reelNext" type="button" aria-label="Next">⏭</button>
+                            <button id="reelMute" type="button" aria-label="Unmute">🔇</button>
+                        </div>
+                    </div>
 
-            <div class="question">
-                Reporter:
+                    <p class="tv-caption">
+                        A running cut of her journey, 100 Level to graduation — every
+                        photo and clip, in order. Tap the speaker to unmute.
+                    </p>
+                </div>
+
+                <p class="archive-intro">
+                    Every year added a new chapter. Every chapter added a new story.
+                    Browse chapter by chapter below, or tap any frame to view it
+                    full-screen.
+                </p>
+
+                <div id="archiveContainer" class="archive-chapters">
+                    <!-- rendered from js/archive-data.js by js/app.js -->
+                </div>
             </div>
+        </section>
 
-            <div class="answer">
-                What is she known for?
+        <!-- CONTACT DIRECTORY -->
+        <section class="directory" id="directory">
+            <div class="container container--narrow">
+                <p class="section-header">Contact Directory</p>
+
+                <div class="directory-card">
+                    <h3>Saved Names</h3>
+                    <dl>
+                        <div class="directory-row">
+                            <dt>Her Phone</dt>
+                            <dd>My Lam Lam 🙈❤️</dd>
+                        </div>
+                        <div class="directory-row">
+                            <dt>His Phone</dt>
+                            <dd>Kim Tin Tin</dd>
+                        </div>
+                    </dl>
+                </div>
             </div>
+        </section>
 
-        </div>
+        <!-- BEYOND THE HEADLINE -->
+        <section class="beyond" id="beyond">
+            <div class="container">
+                <p class="section-header">Beyond The Headline</p>
 
-        <div class="interview-card">
-
-            <div class="question">
-                Answer:
+                <div class="card-grid">
+                    <div class="card">
+                        <span class="card-label">Known As</span>
+                        <h3>Giggles 🤭 / Gigiola</h3>
+                    </div>
+                    <div class="card">
+                        <span class="card-label">Described As</span>
+                        <h3>Calm. Warm. Authentic.</h3>
+                    </div>
+                    <div class="card">
+                        <span class="card-label">Known For</span>
+                        <h3>Good energy, a love for dance, and memorable moments.</h3>
+                    </div>
+                    <div class="card">
+                        <span class="card-label">Story Status</span>
+                        <h3>Still being written.</h3>
+                    </div>
+                </div>
             </div>
+        </section>
 
-            <div class="answer">
-                Good energy, genuine warmth and a love for dance.
+        <!-- EXCLUSIVE INTERVIEW -->
+        <section class="interview" id="interview">
+            <div class="container container--narrow">
+                <p class="section-header">Exclusive Interview</p>
+                <h2 class="headline">In The Newsroom</h2>
+
+                <div class="transcript">
+                    <div class="transcript-row">
+                        <span class="transcript-tag">Q</span>
+                        <p>Who is Giggles?</p>
+                    </div>
+                    <div class="transcript-row transcript-row--answer">
+                        <span class="transcript-tag">A</span>
+                        <p>Someone whose quiet presence leaves a lasting impression.</p>
+                    </div>
+
+                    <div class="transcript-row">
+                        <span class="transcript-tag">Q</span>
+                        <p>What is she known for?</p>
+                    </div>
+                    <div class="transcript-row transcript-row--answer">
+                        <span class="transcript-tag">A</span>
+                        <p>Good energy, genuine warmth and a love for dance.</p>
+                    </div>
+
+                    <div class="transcript-row">
+                        <span class="transcript-tag">Q</span>
+                        <p>What title has she earned today?</p>
+                    </div>
+                    <div class="transcript-row transcript-row--answer">
+                        <span class="transcript-tag">A</span>
+                        <p>Graduate.</p>
+                    </div>
+
+                    <div class="transcript-row">
+                        <span class="transcript-tag">Q</span>
+                        <p>What happens next?</p>
+                    </div>
+                    <div class="transcript-row transcript-row--answer">
+                        <span class="transcript-tag">A</span>
+                        <p>The next chapter begins.</p>
+                    </div>
+                </div>
             </div>
+        </section>
 
-        </div>
+        <!-- THE NUMBERS -->
+        <section class="numbers" id="numbers">
+            <div class="container">
+                <p class="section-header">The Numbers</p>
+                <h2 class="headline">By The Numbers</h2>
 
-        <div class="interview-card">
-
-            <div class="question">
-                Reporter:
+                <div class="card-grid">
+                    <div class="card"><span class="card-label">Department</span><h3>Mass Communication</h3></div>
+                    <div class="card"><span class="card-label">Institution</span><h3>Olabisi Onabanjo University</h3></div>
+                    <div class="card"><span class="card-label">Class</span><h3>2026</h3></div>
+                    <div class="card"><span class="card-label">Known As</span><h3>Giggles 🤭</h3></div>
+                    <div class="card"><span class="card-label">Alias</span><h3>Gigiola</h3></div>
+                    <div class="card"><span class="card-label">Status</span><h3>Graduate ✅</h3></div>
+                </div>
             </div>
+        </section>
 
-            <div class="answer">
-                What title has she earned today?
+        <!-- UNOFFICIAL RECORDS -->
+        <section class="records" id="records">
+            <div class="container">
+                <p class="section-header">Unofficial Records</p>
+                <h2 class="headline">Things The Broadcast Could Not Ignore</h2>
+
+                <div class="card-grid">
+                    <div class="card card--accent"><h3>Official Alias</h3><p>Gigiola</p></div>
+                    <div class="card card--accent"><h3>Known Side Quest</h3><p>Dancing 💃</p></div>
+                    <div class="card card--accent"><h3>Most Likely To</h3><p>Bring good energy to the room</p></div>
+                    <div class="card card--accent"><h3>Current Status</h3><p>Successfully signed out ✅</p></div>
+                </div>
             </div>
+        </section>
 
-        </div>
-
-        <div class="interview-card">
-
-            <div class="question">
-                Answer:
+        <!-- PUBLIC PROFILE -->
+        <section class="profile" id="profile">
+            <div class="container container--narrow">
+                <p class="section-header">Public Profile</p>
+                <blockquote class="pull-quote">
+                    Reserved in nature yet unforgettable in presence. Known by many
+                    as Gigiola, she carries calm energy, genuine warmth and a love
+                    for dance.
+                </blockquote>
             </div>
-
-            <div class="answer">
-                Graduate.
-            </div>
-
-        </div>
-
-        <div class="interview-card">
-
-            <div class="question">
-                Reporter:
-            </div>
-
-            <div class="answer">
-                What happens next?
-            </div>
-
-        </div>
-
-        <div class="interview-card">
-
-            <div class="question">
-                Answer:
-            </div>
-
-            <div class="answer">
-                The next chapter begins.
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<section class="the-numbers">
-
-    <div class="section-header">
-        THE NUMBERS
-    </div>
-
-    <h2>
-        By The Numbers
-    </h2>
-
-    <div class="numbers-grid">
-
-        <div class="number-card">
-
-            <span class="number-label">
-                Department
-            </span>
-
-            <h3>
-                Mass Communication
-            </h3>
-
-        </div>
-
-        <div class="number-card">
-
-            <span class="number-label">
-                Institution
-            </span>
-
-            <h3>
-                Olabisi Onabanjo University
-            </h3>
-
-        </div>
-
-        <div class="number-card">
-
-            <span class="number-label">
-                Class
-            </span>
-
-            <h3>
-                2026
-            </h3>
-
-        </div>
-
-        <div class="number-card">
-
-            <span class="number-label">
-                Known As
-            </span>
-
-            <h3>
-                Giggles 🤭
-            </h3>
-
-        </div>
-
-        <div class="number-card">
-
-            <span class="number-label">
-                Alias
-            </span>
-
-            <h3>
-                Gigiola
-            </h3>
-
-        </div>
-
-        <div class="number-card">
-
-            <span class="number-label">
-                Status
-            </span>
-
-            <h3>
-                GraduATE ✅
-            </h3>
-
-        </div>
-
-    </div>
-
-</section>
-
-<section class="unofficial-records">
-
-    <div class="section-header">
-        UNOFFICIAL RECORDS
-    </div>
-
-    <h2>
-        Things The Broadcast Could Not Ignore
-    </h2>
-
-    <div class="records-grid">
-
-        <div class="record-card">
-
-            <h3>
-                Official Alias
-            </h3>
-
-            <p>
-                Gigiola
-            </p>
-
-        </div>
-
-        <div class="record-card">
-
-            <h3>
-                Known Side Quest
-            </h3>
-
-            <p>
-                Dancing 💃
-            </p>
-
-        </div>
-
-        <div class="record-card">
-
-            <h3>
-                Most Likely To
-            </h3>
-
-            <p>
-                Bring Good Energy To The Room
-            </p>
-
-        </div>
-
-        <div class="record-card">
-
-            <h3>
-                Current Status
-            </h3>
-
-            <p>
-                Successfully Signed Out ✅
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-    <section class="profile">
-
-        <div class="section-header">
-            PUBLIC PROFILE
-        </div>
-
-        <p>
-
-            Reserved in nature yet unforgettable in presence.
-
-            Known by many as Gigiola,
-            she carries calm energy,
-            genuine warmth and a love for dance.
-
-        </p>
-
-    </section>
-
-    <!-- EASTER EGG -->
-
-    <section class="easter-egg">
-
-        <div class="section-header">
-            DEVELOPER CONSOLE
-        </div>
-
-        <button id="revealCode">
-            Reveal Source Code
-        </button>
-
-        <div id="codeBox">
-
-<pre>
-#include &lt;iostream&gt;
-
-int main() {
-
-    bool graduation = true;
-
-    if(graduation) {
-
-        celebrate("Giggles");
-
+        </section>
+
+        <!-- COLOPHON (EASTER EGG) -->
+        <section class="colophon" id="colophon">
+            <div class="container container--narrow">
+                <p class="section-header">Colophon</p>
+                <p class="colophon-intro">
+                    Every publication credits the people who built it — usually in
+                    print too small to notice.
+                </p>
+
+                <button id="revealCode" class="ghost-btn" type="button" aria-expanded="false" aria-controls="codeBox">
+                    View Colophon
+                </button>
+
+                <div id="codeBox" class="code-box" hidden>
+<pre><code><span class="tok-com">// the broadcast you weren't supposed to find</span>
+<span class="tok-kw">#include</span> <span class="tok-str">&lt;iostream&gt;</span>
+
+<span class="tok-kw">class</span> <span class="tok-type">Graduate</span> {
+<span class="tok-kw">public</span>:
+    <span class="tok-type">string</span> name       = <span class="tok-str">"Olawande Teniola Victoria"</span>;
+    <span class="tok-type">string</span> department = <span class="tok-str">"Mass Communication"</span>;
+    <span class="tok-type">string</span> classOf    = <span class="tok-str">"2026"</span>;
+
+    <span class="tok-type">bool</span> <span class="tok-fn">hasGraduated</span>() { <span class="tok-kw">return</span> <span class="tok-kw">true</span>; }
+};
+
+<span class="tok-type">int</span> <span class="tok-fn">main</span>() {
+    <span class="tok-type">Graduate</span> teniola;
+
+    <span class="tok-kw">if</span> (teniola.<span class="tok-fn">hasGraduated</span>()) {
+        <span class="tok-fn">celebrate</span>(teniola.name);
     }
 
-    return 0;
-}
-</pre>
+    <span class="tok-kw">return</span> 0;
+}</code></pre>
 
-            <button id="compileBtn">
-                Compile
-            </button>
+                    <button id="compileBtn" type="button">Compile</button>
+                    <div id="compileOutput" class="compile-output" aria-live="polite"></div>
+                </div>
+            </div>
+        </section>
 
-            <div id="compileOutput"></div>
+        <!-- END OF BROADCAST -->
+        <section class="end-broadcast" id="end">
+            <div class="container container--narrow">
+                <h2 class="headline">End Of Broadcast</h2>
 
-        </div>
+                <p>
+                    This concludes our special coverage celebrating the graduation
+                    journey of Olawande Teniola Victoria.
+                </p>
 
-    </section>
+                <p class="sign-off">Reporting with admiration ~  Lammyde.</p>
+            </div>
+        </section>
 
-    <!-- END BROADCAST -->
-
-    <section class="end-broadcast">
-
-        <h2>
-            End Of Broadcast
-        </h2>
-
-        <p>
-
-            This concludes our special coverage
-            celebrating the graduation journey of
-            Olawande Teniola Victoria.
-
-        </p>
-
-        <p>
-
-            Reporting with admiration,
-
-            Lammyde.
-
-        </p>
-
-    </section>
-
-    <!-- FOOTER -->
+    </main>
 
     <footer>
-
-        Made with love from Lammyde ❤️
-
+        OOU Times — Special Broadcast Edition — Class of 2026
     </footer>
 
+    <!-- LIGHTBOX -->
+    <div id="lightbox" class="lightbox" hidden>
+        <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close">✕</button>
+        <div class="lightbox-inner">
+            <img id="lightboxImage" alt="" hidden>
+            <video id="lightboxVideo" controls playsinline hidden></video>
+        </div>
+    </div>
+
+    <!-- LIVE WIDGET -->
+    <div class="live-widget" aria-hidden="true">
+        <p><span class="live-dot"></span>Live <small>Special Broadcast Coverage</small></p>
+        <div id="broadcastClock">00:00:00</div>
+    </div>
+
+    <!-- BROADCAST AUDIO
+         intro-chime / countdown-beep / onair-horn are synthesized stand-ins
+         (no real sound library was available to source from) — replace
+         them with real files of the same name any time, no code changes
+         needed. background-music.mp3 doesn't exist yet; drop a real track
+         in at that path and it starts working automatically. -->
+    <audio id="introChimeAudio" preload="auto">
+        <source src="assets/audio/intro-chime.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="countdownBeepAudio" preload="auto">
+        <source src="assets/audio/countdown-beep.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="onairHornAudio" preload="auto">
+        <source src="assets/audio/onair-horn.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="bgMusicAudio" preload="auto" loop>
+        <source src="assets/audio/background-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="js/archive-data.js"></script>
     <script src="js/app.js"></script>
-    
-    <div id="lightbox">
-
-    <img
-    id="lightboxImage"
-    alt="Photo Preview">
-
-    </div>
-
 </body>
-
-<div class="live-widget">
-
-    <span class="live-dot"></span>
-
-    LIVE
-
-    <small>
-        Special Graduation Coverage
-    </small>
-
-    <div id="broadcastClock">
-        00:00:00
-    </div>
-
-</div>
 </html>

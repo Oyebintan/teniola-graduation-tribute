@@ -40,8 +40,6 @@
     <!-- LOADER -->
     <div id="loader">
 
-        <button id="skipIntro" aria-label="Skip intro">Skip Intro →</button>
-
         <div class="intro-screen active" id="screen1">
             <span class="loader-tag">OOU TIMES</span>
             <h1>Special Broadcast Edition</h1>
@@ -99,7 +97,6 @@
                 <span class="hud-corner hud-corner--tr"></span>
                 <span class="hud-corner hud-corner--bl"></span>
                 <span class="hud-corner hud-corner--br"></span>
-                <span class="hud-rec"><span class="dot-small"></span>REC</span>
             </div>
 
             <div class="hero-content">
@@ -199,27 +196,27 @@
                 <div class="tv-reel" id="tvReel">
                     <div class="tv">
                         <div class="tv-screen">
-                            <img id="reelImage" alt="" hidden>
-                            <video id="reelVideo" muted playsinline hidden></video>
+                            <video id="reelVideo" muted playsinline loop
+                                   src="assets/video/main-video.mp4"
+                                   poster="assets/photos/archive/100/featured.jpg">
+                            </video>
                             <div class="tv-scanlines" aria-hidden="true"></div>
                             <div class="tv-static" id="reelStatic" aria-hidden="true"></div>
                             <div class="tv-channel">
                                 <span class="tv-on-air"><span class="dot-small" aria-hidden="true"></span>ON AIR</span>
-                                <span class="tv-chapter" id="reelChapterLabel">CH 01 · 100 LEVEL</span>
+                                <span class="tv-chapter" id="reelChapterLabel">Her Academic Journey</span>
                             </div>
                         </div>
 
                         <div class="tv-controls">
-                            <button id="reelPrev" type="button" aria-label="Previous">⏮</button>
                             <button id="reelPlayPause" type="button" aria-label="Pause">⏸</button>
-                            <button id="reelNext" type="button" aria-label="Next">⏭</button>
                             <button id="reelMute" type="button" aria-label="Unmute">🔇</button>
                         </div>
                     </div>
 
                     <p class="tv-caption">
-                        A running cut of her journey, 100 Level to graduation — every
-                        photo and clip, in order. Tap the speaker to unmute.
+                        Her academic journey — from 100 Level to graduation.
+                        Tap the speaker to unmute.
                     </p>
                 </div>
 
@@ -449,15 +446,7 @@
         <div id="broadcastClock">00:00:00</div>
     </div>
 
-    <!-- BROADCAST AUDIO
-         intro-chime / countdown-beep / onair-horn are synthesized stand-ins
-         (no real sound library was available to source from) — replace
-         them with real files of the same name any time, no code changes
-         needed. background-music.mp3 doesn't exist yet; drop a real track
-         in at that path and it starts working automatically. -->
-    <audio id="introChimeAudio" preload="auto">
-        <source src="assets/audio/intro-chime.mp3" type="audio/mpeg">
-    </audio>
+    <!-- BROADCAST AUDIO -->
     <audio id="countdownBeepAudio" preload="auto">
         <source src="assets/audio/countdown-beep.mp3" type="audio/mpeg">
     </audio>

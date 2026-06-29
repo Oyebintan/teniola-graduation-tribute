@@ -22,69 +22,74 @@
             .replace(/>/g, "&gt;");
     }
 
-    /* ---------- broadcast sound ----------
-       Browsers block ALL audio (even silent/soft) from playing until the
-       visitor interacts with the page at least once — this is a universal
-       browser security policy, not something this site can opt out of.
-       So: the moment the visitor taps/clicks/presses any key, every sound
-       element gets "unlocked" for the rest of the session, and from then
-       on the loader's existing beeps/horn/chime fire normally in sync. */
+    /* ---------- broadcast sound ---------- */
     let audioUnlocked = false;
     let bgMusicMuted = false;
-    let introChimeEl, countdownBeepEl, onairHornEl, bgMusicEl;
+    let countdownBeepEl, onairHornEl, bgMusicEl;
 
     function unlockBroadcastAudio() {
         if (audioUnlocked) return;
         audioUnlocked = true;
-
-        [introChimeEl, countdownBeepEl, onairHornEl, bgMusicEl].forEach((el) => {
+        /* silently touch each element so the browser marks this session
+           as having user-gesture permission for audio */
+        [countdownBeepEl, onairHornEl, bgMusicEl].forEach((el) => {
             if (!el) return;
-            el.play()
-                .then(() => el.pause())
-                .catch(() => {
-                    /* element has no source yet, or browser still refused — fine */
-                });
+            const vol = el.volume;
+            el.volume = 0;
+            el.play().then(() => { el.pause(); el.volume = vol; }).catch(() => {});
         });
-
-        if (introChimeEl) {
-            introChimeEl.currentTime = 0;
-            introChimeEl.volume = 0.5;
-            introChimeEl.play().catch(() => {});
-        }
     }
 
     function playCountdownBeep() {
-        if (!audioUnlocked || !countdownBeepEl) return;
+        if (!countdownBeepEl) return;
+        /* countdown-beep.mp3 is 8.5 s — play it once from the start of
+           the whole countdown, not once per tick */
         countdownBeepEl.currentTime = 0;
-        countdownBeepEl.volume = 0.35;
+        countdownBeepEl.volume = 0.55;
         countdownBeepEl.play().catch(() => {});
     }
 
     function playOnAirHorn() {
-        if (!audioUnlocked || !onairHornEl) return;
+        if (!onairHornEl) return;
+        /* stop beep first */
+        countdownBeepEl && (countdownBeepEl.pause(), countdownBeepEl.currentTime = 0);
         onairHornEl.currentTime = 0;
-        onairHornEl.volume = 0.45;
+        onairHornEl.volume = 0.60;
         onairHornEl.play().catch(() => {});
     }
 
     function startBackgroundMusic() {
         if (!bgMusicEl) return;
         bgMusicEl.loop = true;
-        bgMusicEl.volume = bgMusicMuted ? 0 : 0.0;
-        bgMusicEl.play().catch(() => {
-            /* no source yet — silent no-op until a real file is added */
-        });
+        bgMusicEl.volume = bgMusicMuted ? 0 : 0.13;  /* soft, not jarring */
+        bgMusicEl.play().catch(() => {});
+    }
+
+    /* Fade the onair horn out, then fade the background music in */
+    function transitionToBackground() {
+        if (!onairHornEl || !bgMusicEl) {
+            startBackgroundMusic();
+            return;
+        }
+        const startVol = onairHornEl.volume;
+        const steps = 18;
+        let step = 0;
+        const fadeOut = setInterval(() => {
+            step++;
+            onairHornEl.volume = Math.max(0, startVol * (1 - step / steps));
+            if (step >= steps) {
+                clearInterval(fadeOut);
+                onairHornEl.pause();
+                onairHornEl.currentTime = 0;
+                startBackgroundMusic();
+            }
+        }, 60);
     }
 
     function initSound() {
-        introChimeEl = document.getElementById("introChimeAudio");
         countdownBeepEl = document.getElementById("countdownBeepAudio");
-        onairHornEl = document.getElementById("onairHornAudio");
-        bgMusicEl = document.getElementById("bgMusicAudio");
-
-        ["pointerdown", "keydown"].forEach((evt) => {
-            document.addEventListener(evt, unlockBroadcastAudio, { once: true });
-        });
+        onairHornEl    = document.getElementById("onairHornAudio");
+        bgMusicEl      = document.getElementById("bgMusicAudio");
 
         const soundToggle = document.getElementById("soundToggle");
         if (!soundToggle) return;
@@ -95,26 +100,21 @@
             if (bgMusicEl) bgMusicEl.muted = bgMusicMuted;
             if (icon) icon.textContent = bgMusicMuted ? "🔇" : "🔈";
             soundToggle.setAttribute("aria-pressed", String(bgMusicMuted));
-            soundToggle.setAttribute(
-                "aria-label",
-                bgMusicMuted ? "Unmute background music" : "Mute background music"
-            );
+            soundToggle.setAttribute("aria-label",
+                bgMusicMuted ? "Unmute background music" : "Mute background music");
         });
     }
 
     /* ---------- loader / intro ---------- */
     function initLoader() {
-        const loader = document.getElementById("loader");
-        const screen1 = document.getElementById("screen1");
-        const screen2 = document.getElementById("screen2");
-        const screen3 = document.getElementById("screen3");
+        const loader    = document.getElementById("loader");
+        const screen1   = document.getElementById("screen1");
+        const screen2   = document.getElementById("screen2");
+        const screen3   = document.getElementById("screen3");
         const countdown = document.getElementById("countdown");
-        const skipBtn = document.getElementById("skipIntro");
         const goLiveBtn = document.getElementById("goLiveBtn");
 
-        if (!loader || !screen1 || !screen2 || !screen3 || !countdown || !skipBtn) {
-            return;
-        }
+        if (!loader || !screen1 || !screen2 || !screen3 || !countdown) return;
 
         let finished = false;
         let count = 5;
@@ -126,13 +126,10 @@
             finished = true;
             loader.style.opacity = "0";
             document.body.classList.remove("lock-scroll");
-            startBackgroundMusic();
-            setTimeout(() => {
-                loader.hidden = true;
-            }, 800);
+            /* Horn fades out, background music fades in */
+            transitionToBackground();
+            setTimeout(() => { loader.hidden = true; }, 900);
         }
-
-        skipBtn.addEventListener("click", endIntro);
 
         function startSequence() {
             if (finished) return;
@@ -140,57 +137,37 @@
             screen1.classList.remove("active");
             screen2.classList.add("active");
 
+            /* Play the full countdown-beep track once at the start */
+            playCountdownBeep();
+
+            /* Tick the visual number down every second */
             const timer = setInterval(() => {
                 count--;
-
-                if (count >= 0) {
-                    countdown.textContent = String(count);
-                    playCountdownBeep();
-                }
+                if (count >= 0) countdown.textContent = String(count);
 
                 if (count <= 0) {
-
-    clearInterval(timer);
-
-    // let final beep finish
-    setTimeout(() => {
-
-        screen2.classList.remove("active");
-        screen3.classList.add("active");
-
-        countdownBeepEl.pause();
-countdownBeepEl.currentTime = 0;
-
-playOnAirHorn();
-
-onairHornEl.onended = () => {
-
-    endIntro();
-
-};
-
-        // wait for horn to finish before loading site
-        setTimeout(() => {
-
-            endIntro();
-
-        }, 3000);
-
-    }, 700);
-
-}
+                    clearInterval(timer);
+                    /* Brief pause, then ON AIR */
+                    setTimeout(() => {
+                        screen2.classList.remove("active");
+                        screen3.classList.add("active");
+                        playOnAirHorn();
+                        /* Horn is 9 s — end intro while it's still fading */
+                        setTimeout(endIntro, 2800);
+                    }, 400);
+                }
             }, 1000);
         }
 
-        // the countdown (and its sound) only starts once the visitor
-        // deliberately presses "Go Live" — this is also the user gesture
-        // that unlocks audio for the rest of the session, so the beeps
-        // and horn land perfectly in sync instead of racing a timer
+        /* Pressing Go Live = user gesture = audio unlock */
         if (goLiveBtn) {
             goLiveBtn.addEventListener("click", () => {
                 unlockBroadcastAudio();
                 goLiveBtn.disabled = true;
-                startSequence();
+                goLiveBtn.textContent = "Connecting…";
+                /* Short pause before sequence starts so the button press
+                   feels responsive */
+                setTimeout(startSequence, 500);
             });
         }
     }
@@ -499,198 +476,59 @@ onairHornEl.onended = () => {
         }, 1000);
     }
 
-    /* ---------- broadcast reel (old-TV montage) ---------- */
+    /* ---------- broadcast reel (single main-video.mp4) ---------- */
     function initTvReel() {
-        const tv = document.getElementById("tvReel");
-        if (!tv || typeof ARCHIVE === "undefined") return;
-
-        const img = document.getElementById("reelImage");
-        const vid = document.getElementById("reelVideo");
-        const chapterLabel = document.getElementById("reelChapterLabel");
-        const staticEl = document.getElementById("reelStatic");
+        const tv          = document.getElementById("tvReel");
+        const vid         = document.getElementById("reelVideo");
         const playPauseBtn = document.getElementById("reelPlayPause");
-        const prevBtn = document.getElementById("reelPrev");
-        const nextBtn = document.getElementById("reelNext");
-        const muteBtn = document.getElementById("reelMute");
+        const muteBtn     = document.getElementById("reelMute");
 
-        if (!img || !vid || !chapterLabel || !playPauseBtn || !prevBtn || !nextBtn || !muteBtn) {
-            return;
-        }
+        if (!tv || !vid) return;
 
-        // flatten every chapter's cover + photos + videos into one ordered reel
-        const items = [];
-        ARCHIVE.forEach((chapter) => {
-            items.push({
-                type: "image",
-                src: chapter.cover.src,
-                alt: chapter.cover.alt,
-                label: chapter.label,
-                number: chapter.number
+        /* auto-play (muted — browser requirement before gesture) */
+        vid.muted = true;
+        vid.play().catch(() => {});
+
+        /* unmute when user presses the button */
+        if (muteBtn) {
+            let muted = true;
+            muteBtn.addEventListener("click", () => {
+                muted = !muted;
+                vid.muted = muted;
+                muteBtn.textContent = muted ? "🔇" : "🔊";
+                muteBtn.setAttribute("aria-label", muted ? "Unmute" : "Mute");
+                /* If audio hasn't been unlocked yet, this gesture does it */
+                if (!muted) unlockBroadcastAudio();
             });
-            chapter.photos.forEach((photo) => {
-                items.push({
-                    type: "image",
-                    src: photo.src,
-                    alt: photo.alt,
-                    label: chapter.label,
-                    number: chapter.number
-                });
-            });
-            chapter.videos.forEach((video) => {
-                items.push({
-                    type: "video",
-                    src: video.src,
-                    alt: video.alt,
-                    label: chapter.label,
-                    number: chapter.number
-                });
-            });
-        });
-
-        if (!items.length) return;
-
-        const PHOTO_DURATION = 3200;
-        const VIDEO_MAX_DURATION = 6500;
-        const prefersReducedMotion = window.matchMedia(
-            "(prefers-reduced-motion: reduce)"
-        ).matches;
-
-        let index = 0;
-        let playing = !prefersReducedMotion;
-        let userMuted = false;
-        let advanceTimer = null;
-
-        function clearAdvanceTimer() {
-            if (advanceTimer) {
-                clearTimeout(advanceTimer);
-                advanceTimer = null;
-            }
         }
 
-        function flicker() {
-            if (prefersReducedMotion) return;
-            staticEl.classList.remove("flicker");
-            // restart the CSS animation
-            void staticEl.offsetWidth;
-            staticEl.classList.add("flicker");
-        }
-
-        function render(chapterChanged) {
-            const item = items[index];
-            chapterLabel.textContent = `CH ${item.number} · ${item.label.toUpperCase()}`;
-
-            if (chapterChanged) flicker();
-
-            if (item.type === "video") {
-                img.hidden = true;
-                img.removeAttribute("src");
-                vid.src = item.src;
-                // muted until the visitor has interacted at least once
-                // (browser requirement) or they've manually muted the reel
-                vid.muted = userMuted || !audioUnlocked;
-                vid.volume = 0.22;
-                vid.hidden = false;
-                vid.currentTime = 0;
-                if (playing) {
-                    vid.play().catch(() => {
-                        /* autoplay blocked — controls still work */
-                    });
-                }
-            } else {
-                vid.pause();
-                vid.hidden = true;
-                vid.removeAttribute("src");
-                // restart the ken-burns animation on each new photo
-                img.style.animation = "none";
-                img.src = item.src;
-                img.alt = item.alt || "";
-                img.hidden = false;
-                void img.offsetWidth;
-                img.style.animation = "";
-            }
-        }
-
-        function scheduleAdvance() {
-            clearAdvanceTimer();
-            if (!playing) return;
-            const item = items[index];
-            const duration = item.type === "video" ? VIDEO_MAX_DURATION : PHOTO_DURATION;
-            advanceTimer = setTimeout(advance, duration);
-        }
-
-        function advance() {
-            const previousChapter = items[index].number;
-            index = (index + 1) % items.length;
-            render(items[index].number !== previousChapter);
-            scheduleAdvance();
-        }
-
-        function goPrev() {
-            const previousChapter = items[index].number;
-            index = (index - 1 + items.length) % items.length;
-            render(items[index].number !== previousChapter);
-            scheduleAdvance();
-        }
-
-        prevBtn.addEventListener("click", goPrev);
-        nextBtn.addEventListener("click", advance);
-
-        playPauseBtn.addEventListener("click", () => {
-            playing = !playing;
-            playPauseBtn.textContent = playing ? "⏸" : "▶";
-            playPauseBtn.setAttribute("aria-label", playing ? "Pause" : "Play");
-
-            if (playing) {
-                if (items[index].type === "video") {
+        /* play / pause toggle */
+        if (playPauseBtn) {
+            playPauseBtn.addEventListener("click", () => {
+                if (vid.paused) {
                     vid.play().catch(() => {});
+                    playPauseBtn.textContent = "⏸";
+                    playPauseBtn.setAttribute("aria-label", "Pause");
+                } else {
+                    vid.pause();
+                    playPauseBtn.textContent = "▶";
+                    playPauseBtn.setAttribute("aria-label", "Play");
                 }
-                scheduleAdvance();
-            } else {
-                clearAdvanceTimer();
-                vid.pause();
-            }
-        });
+            });
+        }
 
-        muteBtn.addEventListener("click", () => {
-            userMuted = !userMuted;
-            vid.muted = userMuted || !audioUnlocked;
-            muteBtn.textContent = userMuted ? "🔇" : "🔊";
-            muteBtn.setAttribute("aria-label", userMuted ? "Unmute" : "Mute");
-        });
-
-        vid.addEventListener("ended", () => {
-            if (playing) advance();
-        });
-
-        // pause the reel when it's scrolled out of view — saves resources
-        // and avoids audio playing somewhere off-screen unexpectedly
+        /* pause when scrolled out of view */
         if (typeof IntersectionObserver !== "undefined") {
-            const visibilityObserver = new IntersectionObserver(
+            new IntersectionObserver(
                 (entries) => {
                     entries.forEach((entry) => {
-                        if (!entry.isIntersecting) {
-                            clearAdvanceTimer();
-                            vid.pause();
-                        } else if (playing) {
-                            if (items[index].type === "video") {
-                                vid.play().catch(() => {});
-                            }
-                            scheduleAdvance();
-                        }
+                        if (!entry.isIntersecting) vid.pause();
+                        else if (!vid.paused || !vid.ended) vid.play().catch(() => {});
                     });
                 },
-                { threshold: 0.3 }
-            );
-            visibilityObserver.observe(tv);
+                { threshold: 0.25 }
+            ).observe(tv);
         }
-
-        if (!playing) {
-            playPauseBtn.textContent = "▶";
-            playPauseBtn.setAttribute("aria-label", "Play");
-        }
-
-        render(false);
-        scheduleAdvance();
     }
 
     /* ---------- run ---------- */

@@ -30,6 +30,29 @@
     function unlockBroadcastAudio() {
         if (audioUnlocked) return;
         audioUnlocked = true;
+
+        // Lazy-set audio <source> src attributes (use data-src in HTML)
+        [countdownBeepEl, onairHornEl, bgMusicEl].forEach((el) => {
+            if (!el) return;
+            const srcEl = el.querySelector && el.querySelector('source');
+            if (srcEl && srcEl.dataset && srcEl.dataset.src && !srcEl.src) {
+                srcEl.src = srcEl.dataset.src;
+                try { el.load(); } catch (e) { /* ignore */ }
+            }
+        });
+
+        // Lazy-load the main reel video after a user gesture to avoid heavy
+        // network activity on initial page load.
+        const reelVid = document.getElementById("reelVideo");
+        if (reelVid) {
+            const dataSrc = reelVid.dataset && reelVid.dataset.src;
+            if (dataSrc && !reelVid.src) {
+                reelVid.src = dataSrc;
+                reelVid.muted = true;
+                try { reelVid.load(); reelVid.play().catch(() => {}); } catch (e) { /* ignore */ }
+            }
+        }
+
         /* silently touch each element so the browser marks this session
            as having user-gesture permission for audio */
         [countdownBeepEl, onairHornEl, bgMusicEl].forEach((el) => {

@@ -45,9 +45,14 @@
         /* countdown-beep.mp3 is 8.5 s — play it once from the start of
            the whole countdown, not once per tick */
         countdownBeepEl.currentTime = 0;
-        countdownBeepEl.volume = 0.55;
+        countdownBeepEl.volume = 0.35;
         countdownBeepEl.play().catch(() => {});
     }
+    <!-- 2. Add this JavaScript somewhere below it -->
+<script>
+    // This grabs the audio element by its ID and doubles the playback speed
+    document.getElementById('countdownBeepAudio').playbackRate = 2.0;
+</script>
 
     function playOnAirHorn() {
         if (!onairHornEl) return;

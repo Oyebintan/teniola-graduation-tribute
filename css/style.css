@@ -235,7 +235,7 @@ body::before{
 #loader{
     position:fixed;
     inset:0;
-    background:#08070a;
+    background:#000; /* plain black for initial intro */
     display:flex;
     justify-content:center;
     align-items:center;

@@ -486,19 +486,17 @@
 
         if (!tv || !vid) return;
 
-        /* auto-play (muted — browser requirement before gesture) */
-        vid.muted = true;
+        /* auto-play with sound when visible; pause/mute when scrolled away */
+        vid.muted = false;
         vid.play().catch(() => {});
 
-        /* unmute when user presses the button */
         if (muteBtn) {
-            let muted = true;
+            let muted = false;
             muteBtn.addEventListener("click", () => {
                 muted = !muted;
                 vid.muted = muted;
                 muteBtn.textContent = muted ? "🔇" : "🔊";
                 muteBtn.setAttribute("aria-label", muted ? "Unmute" : "Mute");
-                /* If audio hasn't been unlocked yet, this gesture does it */
                 if (!muted) unlockBroadcastAudio();
             });
         }
@@ -518,13 +516,18 @@
             });
         }
 
-        /* pause when scrolled out of view */
+        /* play with sound when in view, pause and mute when scrolled out */
         if (typeof IntersectionObserver !== "undefined") {
             new IntersectionObserver(
                 (entries) => {
                     entries.forEach((entry) => {
-                        if (!entry.isIntersecting) vid.pause();
-                        else if (!vid.paused || !vid.ended) vid.play().catch(() => {});
+                        if (!entry.isIntersecting) {
+                            vid.pause();
+                            vid.muted = true;
+                        } else if (!vid.paused || !vid.ended) {
+                            vid.muted = false;
+                            vid.play().catch(() => {});
+                        }
                     });
                 },
                 { threshold: 0.25 }

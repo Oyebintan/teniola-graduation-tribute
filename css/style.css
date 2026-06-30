@@ -351,7 +351,7 @@ body::before{
     transform:translateY(-50%);
     height:46px;
     border-radius:var(--radius-pill);
-    background:linear-gradient(90deg,var(--gold-700),var(--gold-500));
+    background:linear-gradient(90deg,#c81d2b,#e8333f);
     overflow:hidden;
     box-shadow:0 8px 20px rgba(0,0,0,.25);
     z-index:1;
@@ -1317,8 +1317,7 @@ footer{
     }
 
     .ticker-track{
-        font-size:.58rem;
-        padding-left:110px;
+        font-size:.7rem;
     }
 
     .theme-toggle,

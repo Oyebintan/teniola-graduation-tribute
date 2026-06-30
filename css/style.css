@@ -1151,7 +1151,7 @@ section.in-view,
     cursor:pointer;
     padding:13px 22px;
     border-radius:var(--radius-tile);
-    color:#1a1410;
+    color:#8f6c55;
     background:linear-gradient(135deg,var(--gold-700),var(--gold-300));
     font-family:var(--font-mono);
     font-size:.85rem;

@@ -419,6 +419,7 @@
                 `;
                 compileBtn.disabled = false;
                 compiling = false;
+                launchConfetti(codeBox);
             }, 3400);
         });
     }
